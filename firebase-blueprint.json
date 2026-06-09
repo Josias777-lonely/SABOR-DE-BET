@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User account registration data, credentials, password, and real-time coin balance.",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Unique username chosen by the player (alphanumeric/no spaces)."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address used for logging in."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Formatted phone number of the player."
+        },
+        "password": {
+          "type": "string",
+          "description": "Plaintext passwords for simulated credential authentications."
+        },
+        "balance": {
+          "type": "number",
+          "description": "Real-time count of free virtual coins the user has."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last alteration to user state/balance."
+        }
+      },
+      "required": ["username", "email", "phone", "password", "balance"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "All registered players stored securely."
+    }
+  }
+}

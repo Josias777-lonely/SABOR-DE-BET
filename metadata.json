@@ -1,0 +1,6 @@
+{
+  "name": "BetFree - Apostas Virtuais",
+  "description": "Uma casa de apostas virtual super realista onde você aposta fichas gratuitas em esportes e minigames (Mines, Crash) sem gastar dinheiro real.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

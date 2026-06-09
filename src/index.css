@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  /* Override emerald scales to use our #feb916 brand yellow shades */
+  --color-emerald-50: #fffbeb;
+  --color-emerald-100: #fef9d9;
+  --color-emerald-200: #fef0b3;
+  --color-emerald-300: #fde272;
+  --color-emerald-400: #fbbf24; /* Restored original deep amber gold (slightly darker than base yellow) */
+  --color-emerald-500: #feb916; /* Base brand color #feb916 */
+  --color-emerald-600: #e09d0a; /* Darker golden shade */
+  --color-emerald-700: #b87b06;
+  --color-emerald-800: #925f05;
+  --color-emerald-900: #784b04;
+  --color-emerald-950: #452900;
+
+  /* Let also override green scales to make sure we catch all greens */
+  --color-green-50: #fffbeb;
+  --color-green-100: #fef9d9;
+  --color-green-200: #fef0b3;
+  --color-green-300: #fde272;
+  --color-green-400: #fbbf24; /* Restored original deep amber gold */
+  --color-green-500: #feb916; /* Base brand color #feb916 */
+  --color-green-600: #e09d0a;
+  --color-green-700: #b87b06;
+  --color-green-800: #925f05;
+  --color-green-900: #784b04;
+  --color-green-950: #452900;
+}
+
+/* ==========================================================================
+   Sabor de Bet - Global Premium Interactive Effects (Lift & Glow Hover)
+   ========================================================================== */
+
+/* All buttons, role-buttons, and items with a pointer cursor get transition smoothness */
+button,
+[role="button"],
+.cursor-pointer,
+a,
+nav button {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+/* Extremely gentle 1px elevation & subtle soft glow for premium interactive feel */
+button:not(:disabled):hover,
+[role="button"]:not(:disabled):hover,
+.cursor-pointer:hover {
+  transform: translateY(-1.5px) !important; /* Extremely subtle and gentle lift (no scale distortion) */
+  box-shadow: 0 6px 12px -3px rgba(254, 185, 22, 0.15), 0 4px 8px -4px rgba(254, 185, 22, 0.1) !important;
+}
+
+/* Dark mode generic buttons (slate/border items) glow with a delicate golden amber border on hovering */
+button[class*="bg-slate-"]:not(:disabled):hover,
+[class*="bg-slate-900"].cursor-pointer:hover {
+  border-color: #fbbf24 !important;
+  box-shadow: 0 6px 12px -4px rgba(254, 185, 22, 0.12) !important;
+}
+
+/* Brand colored buttons - transition to their original deeper, richer amber yellow hover shade instead of washed out pale colors */
+button[class*="bg-emerald-500"]:not(:disabled):hover,
+button[class*="bg-green-500"]:not(:disabled):hover,
+[class*="bg-emerald-500"].cursor-pointer:hover,
+[class*="bg-green-500"].cursor-pointer:hover {
+  background-color: #fbbf24 !important; /* Rich darker gold amber yellow for maximum style and professional legibility */
+  color: #020617 !important;
+  box-shadow: 0 8px 16px -4px rgba(254, 185, 22, 0.3), 0 4px 8px -4px rgba(254, 185, 22, 0.2) !important;
+}
+
+button[class*="bg-green-750"]:not(:disabled):hover,
+button[class*="bg-green-700"]:not(:disabled):hover,
+button[class*="bg-emerald-700"]:not(:disabled):hover {
+  background-color: #e09d0a !important; /* Beautiful deeper luxurious gold on hover */
+  box-shadow: 0 8px 16px -4px rgba(224, 157, 10, 0.3) !important;
+}
+
+/* Tactile click-down response on clicking any button / clickable element */
+button:not(:disabled):active,
+[role="button"]:not(:disabled):active,
+.cursor-pointer:active {
+  transform: translateY(0.5px) !important;
+  box-shadow: 0 1px 3px -1px rgba(254, 185, 22, 0.05) !important;
+}
+
+/* Maintain top center navigation links stationary on mouse hover */
+#header-center-navigation button:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+

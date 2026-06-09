@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net (Default-Deny all other paths)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Schema Validation Blueprint for a User
+    function isValidUser(data) {
+      return data.keys().hasAll(['username', 'email', 'phone', 'password', 'balance'])
+        && data.keys().size() <= 7
+        && data.username is string && data.username.size() >= 2 && data.username.size() <= 50
+        && data.email is string && data.email.size() >= 5 && data.email.size() <= 100
+        && data.phone is string && data.phone.size() >= 10 && data.phone.size() <= 25
+        && data.password is string && data.password.size() >= 1 && data.password.size() <= 100
+        && data.balance is number && data.balance >= 0;
+    }
+
+    // Rules for the 'users' collection
+    match /users/{userId} {
+      allow get: if isValidId(userId);
+      
+      // Allow searching or listing users (e.g. for login lookups)
+      allow list: if true;
+
+      // Create a user with dynamic schema validation
+      allow create: if isValidId(userId) 
+        && isValidUser(incoming());
+
+      // Update user document (syncing coins, etc.) check that immutable info doesn't change
+      allow update: if isValidId(userId)
+        && isValidUser(incoming())
+        && incoming().username == existing().username
+        && incoming().email == existing().email;
+
+      // Deletion is forbidden to guard user balances
+      allow delete: if false;
+    }
+  }
+}
